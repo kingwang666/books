@@ -39,6 +39,7 @@
 
 <h2> Start </h2>
 <h3>起源 Activity.dispatchTouchEvent(MotionEvent event)</h3>
+
     public boolean dispatchTouchEvent(MotionEvent ev) {
         if (ev.getAction() == MotionEvent.ACTION_DOWN) {
             onUserInteraction();
@@ -48,21 +49,27 @@
         }
         return onTouchEvent(ev);
     }
+
 从源码看到 当`getWindow().superDispatchTouchEvent(MotionEvent event)`返回true时事件被消费掉了 不会执行`Activity.onTouchEvent(MotionEvent event)`。我们知道Android的`Window`就是`PhoneWindow`
 
 <h3>PhoneWindow.superDispatchTouchEvent(MotionEvent event)</h3>
+
     public boolean superDispatchTouchEvent(MotionEvent event) {
         return mDecor.superDispatchTouchEvent(event);
     }
+
 很简单的一句话调用了`DecorView.superDispatchTouchEvent(MotionEvent event)`
 
 <h3>DecorView.superDispatchTouchEvent(MotionEvent event)</h3>
+
     public boolean superDispatchTouchEvent(MotionEvent event) {
         return super.dispatchTouchEvent(event);
     }
+
 又是很简单的一句话调用了`super.dispatchTouchEvent(MotionEvent event)`这里普及一下<span style="color:red">Android的DecorView是继承自FrameLayout</span>。那意味着`super.dispatchTouchEvent(MotionEvent event)`就是调用了`ViewGroup.dispatchTouchEvent(MotionEvent event)`。
 
 <h3>ViewGroup.dispatchTouchEvent(MotionEvent event)</h3>
+
     public boolean dispatchTouchEvent(MotionEvent ev) {
         if (mInputEventConsistencyVerifier != null) {
             mInputEventConsistencyVerifier.onTouchEvent(ev, 1);
