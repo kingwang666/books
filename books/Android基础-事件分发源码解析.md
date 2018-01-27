@@ -518,6 +518,7 @@ FLAG_DISALLOW_INTERCEPT属性是通过`requestDisallowInterceptTouchEvent(boolea
 
 回到ViewGroup的dispatchTouchEvent(MotionEvent event)方法
 <h4>第四处</h4>
+
             // Dispatch to touch targets.
             if (mFirstTouchTarget == null) {
                 // No touch targets so treat this as an ordinary view.
